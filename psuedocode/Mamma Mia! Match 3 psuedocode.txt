@@ -1,0 +1,37 @@
+﻿1. Define required constant:
+   1. Define an object that starts with “null” that will represent our cards.
+
+
+2. Define required variables used to track state of game:
+   1. Use a board array to represent the cards
+   2. Use a play button variable to determine when the game is in play.
+   3. Use a reset button variable to determine when to “reset” the board state
+   4. Use a attempts variable to see if the user has won the game within allowed amount of attempts
+   5. Use a winner variable to check to see if the user has won the game
+
+
+3. Store elements on the page that will be accessed in the code more than once in variables to practice DRY (Do Not Repeat Yourself) coding practice.
+
+
+4. Uploading of the application:
+   1. Initialize state variables
+   2. “Reset” the board state by setting the attempts variable to 0 and populating the card array with the “cards”
+   3. Initialize the winner variable to null to represent the game is in play and there is no winner. The winner variable will hold a value of 1 that will determine if there is a winner. If there is no winner
+   4. Render the state variables to the page
+   5. Render the board
+   6. Loop through the array populating the board with cards
+   
+5. Render a message:
+   1. If the winner variable does not have the winning value then the game is still in play thus do not display anything
+   2. If the winner variable does contain the “winning” value then render the winner message
+
+6. Handle the user clicking a card:
+   1. Obtain the index of the card that was clicked
+   2. Update the attempts variable and check it to see if the user has “won” the game
+   3. Take the index and assign it to an id to iterate through a loop
+   4. Check and compare both cards that were clicked to determine if there is a match
+   5. Look at the board to determine if there is a winner by looking at the board and the attempts variable
+   6. If there is a winner then display the a message to the user and display the reset button
+
+7. Handle the player hitting the reset button:
+   1. Go back and begin at Step 4 to “reset” the board state.
