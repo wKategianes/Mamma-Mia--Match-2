@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    background-image: url(../imgs/smb3Wallpaper.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-text {
+    padding: 20px;
+}
