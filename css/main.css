@@ -3,14 +3,46 @@
 }
 
 body {
-    display: flex;
+    display: grid;
+    height: 100%;
+    width: auto;
+    justify-content: center;
+    align-items: center;
     background-image: url(../imgs/smb3Wallpaper.jpg);
-    background-size: 100%;
     background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .title-text {
+    padding: 20px; 
+    margin: 20px; 
+}
+
+.playButton {
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+section {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 20px;
+    column-gap: 50px;
+}
+
+.playAgain {
     padding: 20px;
+    margin: 20px;
+}
+
+#cardBack {
+    
 }
