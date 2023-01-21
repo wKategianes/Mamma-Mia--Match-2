@@ -4,7 +4,7 @@
 
 body {
     display: grid;
-    height: 100%;
+    height: 100vh;
     width: auto;
     justify-content: center;
     align-items: center;
@@ -30,12 +30,18 @@ main {
     display: inline-block;
 }
 
+.attempts-display {
+    padding-top: 10px;
+}
+
 section {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
     margin-top: 20px;
     column-gap: 50px;
+    border: solid;
+    border-radius: 5px;
 }
 
 .playAgain {
@@ -43,6 +49,11 @@ section {
     margin: 20px;
 }
 
-#cardBack {
-    
+.cards:hover {
+    border: 5px solid #FBD000;
+
 }
+
+/* #cardBack {
+    
+} */
