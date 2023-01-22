@@ -8,20 +8,22 @@ const SOURCE_DECK = [
     { img: "card5SpinyMario.png", matched: false}
 ];
 
-const CARD_BACK = "img/cardBack.png"
+const CARD_BACK = "img/cardBack.png";
 
 // Variables
 let board, cardSelection, notACard, continues;
 
-
 // Cached Elements
-// const attemptsEl = document.querySelector("h2");
+const attemptsEl = document.querySelector("h2");
 const cardTileEls = document.querySelectorAll("section > img");
 
 // Event Listeners
+document.querySelector("section").addEventListener("click", handleSelection);
+document.getElementById("playButton").addEventListener("click", playGame);
+document.getElementById("playAgain").addEventListener("click", playAgain);
 
 // Functions
-init()
+init();
 
 function init() {
     board = getShuffledDeck();
@@ -37,17 +39,16 @@ function init() {
 function render() {
     // board.forEach(function(card, index) { 
     //     const imageEl = document.getElementById(index);
-    //     const source = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
-    //     imageEl.source = source;
+    //     const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
+    //     imageEl.src = src;
     // });
 }
-
 
 // handleSelection function will determine where the player has clicked
 // Checks for a match and winner
 function handleSelection(evt) {
     const cardIndex = parseInt(evt.target.id);
-    const card = card[cardIndex];
+    const card = board[cardIndex];
     // conditional used to check if player clicked on notACard or matched card
     if (notACard || isNaN(cardIndex) || card.matched) return;
     // checking to see if there is a match and if there is a winner
@@ -57,7 +58,7 @@ function handleSelection(evt) {
         if (card.img === cardSelection.img) {
             card.matched = cardSelection = true;
             cardSelection = null;
-            winner.every(card => card.matched);
+            winner= board.every(card => card.matched);
         } else {
             notACard = true;
             cardSelection = null;
@@ -89,3 +90,13 @@ function getShuffledDeck() {
     }
     return cards;
     };
+
+// call the init function to reset the board state
+function playGame() {
+    init();
+}
+
+// call the playGame function to reset board state
+function playAgain() {
+    playGame();
+}
