@@ -11,10 +11,12 @@ const SOURCE_DECK = [
 const CARD_BACK = "img/cardBack.png"
 
 // Variables
-let cardSelect, badClicks, cardMatch, attempts;
+let board, cardSelection, notACard, continues;
+
 
 // Cached Elements
-const attemptsEl = document.querySelector("h2");
+// const attemptsEl = document.querySelector("h2");
+const cardTileEls = document.querySelectorAll("section > img");
 
 // Event Listeners
 
@@ -22,40 +24,68 @@ const attemptsEl = document.querySelector("h2");
 init()
 
 function init() {
-    cardSelect = getSuffledDeck();
-    badClicks = false;
-    attempts = 10;
+    board = getShuffledDeck();
+    cardSelection = null;
+    console.log(board);
+    notACard = false;
+    contunues = 10
     winner = null;
-    render();
+    render(); 
 }
 
 // Render function used to display the current state to the player
 function render() {
-    attemptsEl.innerHTML = `Continues: ${attempts}`;
-
-
-    
+    // board.forEach(function(card, index) { 
+    //     const imageEl = document.getElementById(index);
+    //     const source = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
+    //     imageEl.source = source;
+    // });
 }
+
 
 // handleSelection function will determine where the player has clicked
 // Checks for a match and winner
 function handleSelection(evt) {
-    const cardIdx = evt.target.id;
+    const cardIndex = parseInt(evt.target.id);
+    const card = card[cardIndex];
+    // conditional used to check if player clicked on notACard or matched card
+    if (notACard || isNaN(cardIndex) || card.matched) return;
+    // checking to see if there is a match and if there is a winner
+    if (cardSelection && cardSelection === card) {
+        cardSelection = null;
+    } else if (cardSelection) {
+        if (card.img === cardSelection.img) {
+            card.matched = cardSelection = true;
+            cardSelection = null;
+            winner.every(card => card.matched);
+        } else {
+            notACard = true;
+            cardSelection = null;
+            card.matched = true;
+            render();
+        }
+    }
 };
 
-// getSuffledDeck will create an array that uses the SOURCE_DECK
-// it will push the cards into the array
-function getSuffledDeck() {
-    let tempC = [];
-    let cards = [];
-    for (let card of SOURCE_DECK) {
-        tempC.push({...card}, {...card})
-    }
+function getShuffledDeck() {
+    const tempCards = [];
+    // array that will be returned
+    const cards = [];
+    // copy each source card twice and add to tempCards
+    for (let img of SOURCE_DECK) {
+    // Use spread syntax to copy source tile object's properties.
+    // If we don't make copies, the objects in SOURCE_DECK will
+    // be changed when we update matched to true.
+        tempCards.push({...img}, {...img})};
 
-    while (tempC.length) {
-        let randomIdx = Math.floor(Math.random() * tempC.length);
-        let card = tempC.splice(randomIdx, 1)[0];
-        cards.push(card);
+    // Randomly choose a tile in tempCards, remove it, and 
+    // add it to the cards array
+    while (tempCards.length) {
+        const randomIndex = Math.floor(Math.random() * tempCards.length);
+        // Remove tile - note that splice always returns an array
+        // and that is why the [0] is appended to splice
+        const randomCard = tempCards.splice(randomIndex, 1)[0];
+        cards.push(randomCard);
     }
     return cards;
-}
+    };

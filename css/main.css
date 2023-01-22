@@ -4,8 +4,8 @@
 
 body {
     display: grid;
-    height: 100vh;
-    width: auto;
+    height: 100%;
+    width: 100%;
     justify-content: center;
     align-items: center;
     background-image: url(../imgs/smb3Wallpaper.jpg);
@@ -16,7 +16,7 @@ body {
 main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -38,10 +38,7 @@ section {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
-    margin-top: 20px;
-    column-gap: 50px;
-    border: solid;
-    border-radius: 5px;
+    gap: 1px;
 }
 
 .playAgain {
@@ -50,8 +47,7 @@ section {
 }
 
 .cards:hover {
-    border: 5px solid #FBD000;
-
+    /* border: 1.5px solid #FBD000; */
 }
 
 /* #cardBack {
