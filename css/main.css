@@ -34,14 +34,17 @@ main {
     padding-top: 10px;
 }
 
-.section {
+.cardContainer {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .playAgain {
     padding: 20px;
     margin: 20px;
 }
+
+/* .cardClass {
+} */

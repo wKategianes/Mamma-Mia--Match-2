@@ -1,15 +1,15 @@
 // Constants
     const SOURCE_DECK = [
-        { name: "FireMario", img: "card1FireMario.png", matched: false},
-        { name: "FireMario",  img: "card1FireMario.png", matched: false},
-        { name: "RacoonMario",  img: "card2RacoonMario.png", matched: false},
-        { name: "RacoonMario",  img: "card2RacoonMario.png", matched: false},
-        { name: "FrogMario",  img: "card3FrogMario.png", matched: false},
-        { name: "FrogMario",  img: "card3FrogMario.png", matched: false},
-        { name: "ShoeMario",  img: "card4ShoeMario.png", matched: false},
-        { name: "ShoeMario",  img: "card4ShoeMario.png", matched: false},
-        { name: "SpinyMario",  img: "card5SpinyMario.png", matched: false},
-        { name: "SpinyMario",  img: "card5SpinyMario.png", matched: false},
+        { name: "FireMario", img: "imgs/card1FireMario.png", matched: false},
+        { name: "FireMario",  img: "imgs/card1FireMario.png", matched: false},
+        { name: "RacoonMario",  img: "imgs/card2RacoonMario.png", matched: false},
+        { name: "RacoonMario",  img: "imgs/card2RacoonMario.png", matched: false},
+        { name: "FrogMario",  img: "imgs/card3FrogMario.png", matched: false},
+        { name: "FrogMario",  img: "imgs/card3FrogMario.png", matched: false},
+        { name: "ShoeMario",  img: "imgs/card4ShoeMario.png", matched: false},
+        { name: "ShoeMario",  img: "imgs/card4ShoeMario.png", matched: false},
+        { name: "SpinyMario",  img: "imgs/card5SpinyMario.png", matched: false},
+        { name: "SpinyMario",  img: "imgs/card5SpinyMario.png", matched: false},
     ];
 
 const CARD_BACK = "imgs/cardBack.png";
@@ -21,7 +21,8 @@ let board, cardSelection, notACard, continues;
 const boardGrid = document.querySelector("#cardContainer");
 
 // Event Listeners
-
+document.querySelector(".cardContainer").addEventListener("click", handleSelection);
+document.querySelectorAll(".cardClass");
 
 // Functions
 init();
@@ -33,6 +34,7 @@ function init() {
     notACard = false;
     contunues = 10
     winner = null;
+    // boardSetup();
     render();
 }
 
@@ -50,47 +52,38 @@ function getShuffledDeck () {
 
 // Render function used to display the current state to the player
 function render() {
-    board.forEach(function(card) { 
-        const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
-        var x = document.createElement("img");
-        x.setAttribute("src", src)
-        document.getElementById("cardContainer").appendChild(x);
-    });
 }
 
-// handleSelection function will determine where the player has clicked
-// Checks for a match and winner
 function handleSelection(evt) {
-    const cardIndex = parseInt(evt.target.id);
-    const card = board[cardIndex];
-    // conditional used to check if player clicked on notACard or matched card
-    if (notACard || isNaN(cardIndex) || card.matched) return;
-    // checking to see if there is a match and if there is a winner
-    if (cardSelection && cardSelection === card) {
-        cardSelection = null;
-    } else if (cardSelection) {
-        if (card.img === cardSelection.img) {
-            card.matched = cardSelection = true;
-            cardSelection = null;
-            winner= board.every(card => card.matched);
-        } else {
-            notACard = true;
-            cardSelection = null;
-            card.matched = true;
-            render();
-        }
-    }
+    // // guard
+    if (evt.target.tagName !== "IMG") return console.log("NOPE");
+
+    cardSelection = evt.target.id;
+
+    const select = document.getElementById(evt.target.id)
+
+    select.setAttribute("src", board[cardSelection].img);
+
+
+
+
+
+    console.log(cardSelection)
+
+    render();
 };
 
-function boardSetup() {
-    for (let i = 0; i < SOURCE_DECK.length; i++) {
-        let card = document.createElement("img");
-        card.setAttribute("src", "img/cardBack.png");
-        card.setAttribute("card-id", i);
-        card.addEventListener("click", flipCard);
-        boardGrid.appendChild(card);
-    }
-};
+// Sets up the board to contain our grid of cards
+// function boardSetup () {
+//     board.forEach(function(card, index) { 
+//         const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
+//         var x = document.createElement("img");
+//         x.setAttribute("src", CARD_BACK)
+//         x.setAttribute("id", index);
+//         x.setAttribute("class", "cardClass");
+//         document.getElementById("cardContainer").appendChild(x);
+//     });
+// }
 
 // call the init function to reset the board state
 function playGame() {
