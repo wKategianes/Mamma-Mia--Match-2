@@ -33,8 +33,8 @@ function init() {
     board = getShuffledDeck();
     cardSelection = null;
     firstCard = null;
+    firstCardMatch = null;
     console.log(board);
-    notACard = false;
     contunues = 10
     winner = null;
     // boardSetup();
@@ -55,6 +55,9 @@ function getShuffledDeck () {
 
 // Render function used to display the current state to the player
 function render() {
+    // for (let i = 0; i < board.length; i++) {
+        
+    // }
     
 }
 
@@ -69,12 +72,13 @@ function handleSelection(evt) {
 
     if (board[cardSelection].matched === false) {
         select.setAttribute("src", board[cardSelection].img);
+        ignoreClick = true;
     }
-    console.log(cardSelection)
 
     if (attemptCount !== 2){
-        firstCard = board[evt.target.id];
         attemptCount++;
+        firstCard = board[evt.target.id];
+        firstCardmatch = evt.target.id;
     } else if (attemptCount === 2){
         checkMatch(evt);
         attemptCount = 1;
@@ -87,6 +91,8 @@ function handleSelection(evt) {
 
 function checkMatch (evt) {
     if (firstCard.img === board[evt.target.id].img) {
+        firstCard.matched = true;
+        board[evt.target.id].matched = true;
         console.log("ITS A MATCH");
     } else {
         setTimeout(function() {
@@ -95,6 +101,7 @@ function checkMatch (evt) {
             board[evt.target.id].img = CARD_BACK;
         }, 500);
     }
+    console.log(board);
     render();    
 }
 
