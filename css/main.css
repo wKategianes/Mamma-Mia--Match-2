@@ -36,8 +36,8 @@ main {
 
 .cardContainer {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(2, 20vmin);
+    grid-template-columns: repeat(5, 20vmin);
     gap: 10px;
 }
 
@@ -46,5 +46,7 @@ main {
     margin: 20px;
 }
 
-/* .cardClass {
-} */
+div > img:hover{
+    border: solid #fbd000;
+
+}
