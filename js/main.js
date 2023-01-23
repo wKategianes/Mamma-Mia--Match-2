@@ -1,24 +1,24 @@
 // Constants
     const SOURCE_DECK = [
-        { name: "FireMario", img: "card1FireMario.png"},
-        { name: "FireMario",  img: "card1FireMario.png"},
-        { name: "RacoonMario",  img: "card2RacoonMario.png"},
-        { name: "RacoonMario",  img: "card2RacoonMario.png"},
-        { name: "FrogMario",  img: "card3FrogMario.png"},
-        { name: "FrogMario",  img: "card3FrogMario.png"},
-        { name: "ShoeMario",  img: "card4ShoeMario.png"},
-        { name: "ShoeMario",  img: "card4ShoeMario.png"},
-        { name: "SpinyMario",  img: "card5SpinyMario.png"},
-        { name: "SpinyMario",  img: "card5SpinyMario.png"},
+        { name: "FireMario", img: "card1FireMario.png", matched: false},
+        { name: "FireMario",  img: "card1FireMario.png", matched: false},
+        { name: "RacoonMario",  img: "card2RacoonMario.png", matched: false},
+        { name: "RacoonMario",  img: "card2RacoonMario.png", matched: false},
+        { name: "FrogMario",  img: "card3FrogMario.png", matched: false},
+        { name: "FrogMario",  img: "card3FrogMario.png", matched: false},
+        { name: "ShoeMario",  img: "card4ShoeMario.png", matched: false},
+        { name: "ShoeMario",  img: "card4ShoeMario.png", matched: false},
+        { name: "SpinyMario",  img: "card5SpinyMario.png", matched: false},
+        { name: "SpinyMario",  img: "card5SpinyMario.png", matched: false},
     ];
 
-const CARD_BACK = "img/cardBack.png";
+const CARD_BACK = "imgs/cardBack.png";
 
 // Variables
 let board, cardSelection, notACard, continues;
 
 // Cached Elements
-const boardGrid = document.querySelector(".cards");
+const boardGrid = document.querySelector("#cardContainer");
 
 // Event Listeners
 
@@ -33,7 +33,7 @@ function init() {
     notACard = false;
     contunues = 10
     winner = null;
-    render(); 
+    render();
 }
 
 // creates a copy of the SOURCE_DECK using the spread function
@@ -43,18 +43,19 @@ function getShuffledDeck () {
 
     tempDeck.sort(() => Math.random() - 0.5)
     console.log(tempDeck)
-    
+
     return tempDeck;
 }
 
 
 // Render function used to display the current state to the player
 function render() {
-    // board.forEach(function(card, index) { 
-    //     const imageEl = document.getElementById(index);
-    //     const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
-    //     imageEl.src = src;
-    // });
+    board.forEach(function(card) { 
+        const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
+        var x = document.createElement("img");
+        x.setAttribute("src", src)
+        document.getElementById("cardContainer").appendChild(x);
+    });
 }
 
 // handleSelection function will determine where the player has clicked
