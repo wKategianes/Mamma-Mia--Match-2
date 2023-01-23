@@ -1,12 +1,16 @@
 // Constants
-// array of objects that store card images and current state
-const SOURCE_DECK = [
-    { img: "card1FireMario.png", matched: false},
-    { img: "card2RacoonMario.png", matched: false},
-    { img: "card3FrogMario.png", matched: false},
-    { img: "card4ShoeMario.png", matched: false},
-    { img: "card5SpinyMario.png", matched: false}
-];
+    const SOURCE_DECK = [
+        { name: "FireMario", img: "card1FireMario.png"},
+        { name: "FireMario",  img: "card1FireMario.png"},
+        { name: "RacoonMario",  img: "card2RacoonMario.png"},
+        { name: "RacoonMario",  img: "card2RacoonMario.png"},
+        { name: "FrogMario",  img: "card3FrogMario.png"},
+        { name: "FrogMario",  img: "card3FrogMario.png"},
+        { name: "ShoeMario",  img: "card4ShoeMario.png"},
+        { name: "ShoeMario",  img: "card4ShoeMario.png"},
+        { name: "SpinyMario",  img: "card5SpinyMario.png"},
+        { name: "SpinyMario",  img: "card5SpinyMario.png"},
+    ];
 
 const CARD_BACK = "img/cardBack.png";
 
@@ -14,13 +18,10 @@ const CARD_BACK = "img/cardBack.png";
 let board, cardSelection, notACard, continues;
 
 // Cached Elements
-const attemptsEl = document.querySelector("h2");
-const cardTileEls = document.querySelectorAll("section > img");
+const boardGrid = document.querySelector(".cards");
 
 // Event Listeners
-document.querySelector("section").addEventListener("click", handleSelection);
-document.getElementById("playButton").addEventListener("click", playGame);
-document.getElementById("playAgain").addEventListener("click", playAgain);
+
 
 // Functions
 init();
@@ -34,6 +35,18 @@ function init() {
     winner = null;
     render(); 
 }
+
+// creates a copy of the SOURCE_DECK using the spread function
+// using the sort method to shuffle the deck and returning the shuffled deck
+function getShuffledDeck () {
+    let tempDeck = [...SOURCE_DECK];
+
+    tempDeck.sort(() => Math.random() - 0.5)
+    console.log(tempDeck)
+    
+    return tempDeck;
+}
+
 
 // Render function used to display the current state to the player
 function render() {
@@ -68,28 +81,15 @@ function handleSelection(evt) {
     }
 };
 
-function getShuffledDeck() {
-    const tempCards = [];
-    // array that will be returned
-    const cards = [];
-    // copy each source card twice and add to tempCards
-    for (let img of SOURCE_DECK) {
-    // Use spread syntax to copy source tile object's properties.
-    // If we don't make copies, the objects in SOURCE_DECK will
-    // be changed when we update matched to true.
-        tempCards.push({...img}, {...img})};
-
-    // Randomly choose a tile in tempCards, remove it, and 
-    // add it to the cards array
-    while (tempCards.length) {
-        const randomIndex = Math.floor(Math.random() * tempCards.length);
-        // Remove tile - note that splice always returns an array
-        // and that is why the [0] is appended to splice
-        const randomCard = tempCards.splice(randomIndex, 1)[0];
-        cards.push(randomCard);
+function boardSetup() {
+    for (let i = 0; i < SOURCE_DECK.length; i++) {
+        let card = document.createElement("img");
+        card.setAttribute("src", "img/cardBack.png");
+        card.setAttribute("card-id", i);
+        card.addEventListener("click", flipCard);
+        boardGrid.appendChild(card);
     }
-    return cards;
-    };
+};
 
 // call the init function to reset the board state
 function playGame() {
