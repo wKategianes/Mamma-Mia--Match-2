@@ -25,6 +25,10 @@ const boardGrid = document.querySelectorAll("#gridImage");
 const boardContinues = document.querySelector("#attempts-display");
 const gridImages = document.getElementsByClassName("gridImage");
 const attemptDisplay = document.getElementById("attempts-display")
+const matchAudio = new Audio("Sounds/Mario-match.wav");
+const noMatchAudio = new Audio("Sounds/Mario-noMatch.wav");
+const winEffect = new Audio("Sounds/Mario-winner.wav");
+const gameOver = new Audio("Sounds/Mario-gameOver.wav");
 
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
@@ -38,11 +42,12 @@ function init() {
     board = getShuffledDeck();
     cardSelection = null;
     firstCard = null;
-    firstCardMatch = null;
-    console.log(board);
-    console.log(attemptCount);
     continues = 10;
     winner = null;
+    matchAudio.volume = 0.01;
+    noMatchAudio.volume = 0.01;
+    winEffect.volume = 0.01;
+    gameOver.volume = 0.01;
     render();
 }
 
@@ -92,7 +97,6 @@ function handleSelection(evt) {
     if (attemptCount !== 2){
         attemptCount++;
         firstCard = board[evt.target.id];
-        firstCardmatch = evt.target.id;
     } else if (attemptCount === 2){
         checkMatch(evt);
         attemptCount = 1;
@@ -105,8 +109,10 @@ function checkMatch (evt) {
         board[evt.target.id].matched = true;
         console.log("ITS A MATCH");
         render();
+        matchAudio.play();
     } else {       
         console.log("ITS NOT A MATCH")
+        noMatchAudio.play();
         continues--;
         setTimeout(function() {
             console.log("Inside Timeout");
@@ -145,5 +151,13 @@ function getWinner () {
                     });
     console.log(checkWinner);
         
-    if (checkWinner === true) return console.log("WINNER");
+    if (checkWinner === true) {
+        winEffect.play();
+        return console.log("WINNER");
+    }
+
+    if (checkWinner === false && continues == 0) {
+        gameOver.play();
+        return console.log("Game Over!")
+    }
 }
