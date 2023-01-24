@@ -143,5 +143,7 @@ function getWinner () {
     let checkWinner = board.every(function(bool) {
                         return bool.matched === true;
                     });
+    console.log(checkWinner);
+        
     if (checkWinner === true) return console.log("WINNER");
 }
