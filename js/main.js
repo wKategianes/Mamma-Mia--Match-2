@@ -1,15 +1,15 @@
 // Constants
     const SOURCE_DECK = [
-        { name: "FireMario", img: "imgs/card1FireMario.png", matched: false},
-        { name: "FireMario",  img: "imgs/card1FireMario.png", matched: false},
-        { name: "RacoonMario",  img: "imgs/card2RacoonMario.png", matched: false},
-        { name: "RacoonMario",  img: "imgs/card2RacoonMario.png", matched: false},
-        { name: "FrogMario",  img: "imgs/card3FrogMario.png", matched: false},
-        { name: "FrogMario",  img: "imgs/card3FrogMario.png", matched: false},
-        { name: "ShoeMario",  img: "imgs/card4ShoeMario.png", matched: false},
-        { name: "ShoeMario",  img: "imgs/card4ShoeMario.png", matched: false},
-        { name: "SpinyMario",  img: "imgs/card5SpinyMario.png", matched: false},
-        { name: "SpinyMario",  img: "imgs/card5SpinyMario.png", matched: false},
+        { name: "FireMario", img: "imgs/card1Mushroom.png", matched: false},
+        { name: "FireMario",  img: "imgs/card1Mushroom.png", matched: false},
+        { name: "RacoonMario",  img: "imgs/card2FireFlower.png", matched: false},
+        { name: "RacoonMario",  img: "imgs/card2FireFlower.png", matched: false},
+        { name: "FrogMario",  img: "imgs/card3Star.png", matched: false},
+        { name: "FrogMario",  img: "imgs/card3Star.png", matched: false},
+        { name: "ShoeMario",  img: "imgs/card4Chest.png", matched: false},
+        { name: "ShoeMario",  img: "imgs/card4Chest.png", matched: false},
+        { name: "SpinyMario",  img: "imgs/card5Coin.png", matched: false},
+        { name: "SpinyMario",  img: "imgs/card5Coin.png", matched: false},
     ];
 
 const CARD_BACK = "imgs/cardBack.png";
@@ -28,12 +28,14 @@ const attemptDisplay = document.getElementById("attempts-display")
 const matchAudio = new Audio("Sounds/Mario-match.wav");
 const noMatchAudio = new Audio("Sounds/Mario-noMatch.wav");
 const winEffect = new Audio("Sounds/Mario-winner.wav");
-const gameOver = new Audio("Sounds/Mario-gameOver.wav");
+const gameOver = new Audio("Sounds/Mario-mamma-mia.wav");
+const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav")
+const playAgainEffect = new Audio("Sounds/Mario-lets-a-go.wav");
 
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
 document.querySelector(".playButton").addEventListener("click", playGame);
-document.querySelector(".playAgain").addEventListener("click", playAgain)
+// document.querySelector(".playAgain").addEventListener("click", playAgain)
 
 // Functions
 init();
@@ -42,13 +44,15 @@ function init() {
     board = getShuffledDeck();
     cardSelection = null;
     firstCard = null;
-    continues = 10;
+    continues = 5;
     winner = null;
     ignoreClick = false;
     matchAudio.volume = 0.01;
     noMatchAudio.volume = 0.01;
     winEffect.volume = 0.01;
     gameOver.volume = 0.01;
+    playButtonEffect.volume = 0.01;
+    playAgainEffect.volume = 0.01;
     render();
 }
 
@@ -79,12 +83,12 @@ function render() {
         }
     });
     attemptDisplay.innerHTML = "Continues: " + continues;
-    getWinner();
     ignoreClick = false;
+    getWinner();
 }
 
 function handleSelection(evt) {
-    // // guard
+    // guard
     if (evt.target.tagName !== "IMG" || ignoreClick === true) return console.log("NOPE");
 
     cardSelection = evt.target.id;
@@ -116,10 +120,11 @@ function checkMatch (evt) {
         ignoreClick = true;
         noMatchAudio.play();
         continues--;
+        continues = Math.max(continues--, 0);
         setTimeout(function() {
             console.log("Inside Timeout");
             render();
-        }, 5000);
+        }, 1000);
         };
     }    
 
@@ -137,13 +142,15 @@ function boardSetup () {
 
 // call the init function to reset the board state
 function playGame() {
+    playButtonEffect.play();
     init();
 }
 
 // call the playGame function to reset board state
-function playAgain() {
-    playGame();
-}
+// function playAgain() {
+//     playAgainEffect.play();
+//     init();
+// }
 
 // checks the board.matched property to see if we have a winner
 function getWinner () {
@@ -153,11 +160,13 @@ function getWinner () {
         
     if (checkWinner === true) {
         winEffect.play();
+        ignoreClick = true;
         return console.log("WINNER");
     }
 
     if (checkWinner === false && continues == 0) {
         gameOver.play();
+        ignoreClick = true;
         return console.log("Game Over!")
     }
 }
