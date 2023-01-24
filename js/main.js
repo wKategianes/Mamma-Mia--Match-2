@@ -73,6 +73,7 @@ function render() {
         }
     });
     attemptDisplay.innerHTML = "Continues: " + continues;
+    getWinner();
 }
 
 function handleSelection(evt) {
@@ -94,7 +95,6 @@ function handleSelection(evt) {
         firstCardmatch = evt.target.id;
     } else if (attemptCount === 2){
         checkMatch(evt);
-        getWinner();
         attemptCount = 1;
     }
 };
@@ -104,7 +104,7 @@ function checkMatch (evt) {
         firstCard.matched = true;
         board[evt.target.id].matched = true;
         console.log("ITS A MATCH");
-        continues--;
+        render();
     } else {       
         console.log("ITS NOT A MATCH")
         continues--;
@@ -112,10 +112,7 @@ function checkMatch (evt) {
             console.log("Inside Timeout");
             render();
         }, 2000);
-        // firstCard.img = CARD_BACK;
-        // board[evt.target.id].img = CARD_BACK;
         };
-        console.log(board);
     }    
 
 // Sets up the board to contain our grid of cards
@@ -143,5 +140,8 @@ function playAgain() {
 // checks the board.matched property to see if we have a winner
 function getWinner () {
     console.log("Inside Winner Function");
-
+    let checkWinner = board.every(function(bool) {
+                        return bool.matched === true;
+                    });
+    if (checkWinner === true) return console.log("WINNER");
 }
