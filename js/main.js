@@ -18,7 +18,7 @@ const CARD_BACK = "imgs/cardBack.png";
 let board, cardSelection, firstCard, continues;
 let attemptCount = 1;
 let firstCardShow = true;
-let firstCardMatch = true;
+let ignoreClick;
 
 // Cached Elements
 const boardGrid = document.querySelectorAll("#gridImage");
@@ -44,6 +44,7 @@ function init() {
     firstCard = null;
     continues = 10;
     winner = null;
+    ignoreClick = false;
     matchAudio.volume = 0.01;
     noMatchAudio.volume = 0.01;
     winEffect.volume = 0.01;
@@ -79,11 +80,12 @@ function render() {
     });
     attemptDisplay.innerHTML = "Continues: " + continues;
     getWinner();
+    ignoreClick = false;
 }
 
 function handleSelection(evt) {
     // // guard
-    if (evt.target.tagName !== "IMG") return console.log("NOPE");
+    if (evt.target.tagName !== "IMG" || ignoreClick === true) return console.log("NOPE");
 
     cardSelection = evt.target.id;
 
@@ -91,8 +93,7 @@ function handleSelection(evt) {
 
     if (board[cardSelection].matched === false) {
         select.setAttribute("src", board[cardSelection].img);
-        ignoreClick = true;
-    }
+    };
 
     if (attemptCount !== 2){
         attemptCount++;
@@ -112,12 +113,13 @@ function checkMatch (evt) {
         matchAudio.play();
     } else {       
         console.log("ITS NOT A MATCH")
+        ignoreClick = true;
         noMatchAudio.play();
         continues--;
         setTimeout(function() {
             console.log("Inside Timeout");
             render();
-        }, 2000);
+        }, 5000);
         };
     }    
 
@@ -145,11 +147,9 @@ function playAgain() {
 
 // checks the board.matched property to see if we have a winner
 function getWinner () {
-    console.log("Inside Winner Function");
     let checkWinner = board.every(function(bool) {
                         return bool.matched === true;
-                    });
-    console.log(checkWinner);
+    });
         
     if (checkWinner === true) {
         winEffect.play();
