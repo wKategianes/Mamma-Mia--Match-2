@@ -9,7 +9,7 @@
         { name: "ShoeMario",  img: "imgs/card4ShoeMario.png", matched: false},
         { name: "ShoeMario",  img: "imgs/card4ShoeMario.png", matched: false},
         { name: "SpinyMario",  img: "imgs/card5SpinyMario.png", matched: false},
-        { name: "SpinyMario",  img: "imgs/card5SpinyMario.png", matched: true},
+        { name: "SpinyMario",  img: "imgs/card5SpinyMario.png", matched: false},
     ];
 
 const CARD_BACK = "imgs/cardBack.png";
@@ -17,14 +17,17 @@ const CARD_BACK = "imgs/cardBack.png";
 // Variables
 let board, cardSelection, firstCard, continues;
 let attemptCount = 1;
+let firstCardShow = true;
+let firstCardMatch = true;
 
 // Cached Elements
 const boardGrid = document.querySelectorAll("#gridImage");
 const boardContinues = document.querySelector("#attempts-display");
+let gridImages = document.getElementsByClassName("gridImage");
 
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
-document.querySelectorAll(".cardClass");
+document.querySelector(".playButton").addEventListener("click", playGame)
 
 // Functions
 init();
@@ -35,6 +38,7 @@ function init() {
     firstCard = null;
     firstCardMatch = null;
     console.log(board);
+    console.log(attemptCount);
     contunues = 10
     winner = null;
     // boardSetup();
@@ -49,16 +53,20 @@ function getShuffledDeck () {
     tempDeck.sort(() => Math.random() - 0.5)
     console.log(tempDeck)
 
+    // for (let i = 0; i < tempDeck.length; i++) {
+    //     gridImages[i].setAttribute("src", CARD_BACK);
+    //     tempDeck[i].matched = false;
+    // };
+
     return tempDeck;
 }
 
 
 // Render function used to display the current state to the player
 function render() {
-    // for (let i = 0; i < board.length; i++) {
-        
-    // }
-    
+    board.forEach(function(card, idx) {
+        console.log("In Render")
+    });   
 }
 
 function handleSelection(evt) {
@@ -81,10 +89,9 @@ function handleSelection(evt) {
         firstCardmatch = evt.target.id;
     } else if (attemptCount === 2){
         checkMatch(evt);
+        // getTimer();
         attemptCount = 1;
     }
-
-    console.log(attemptCount);
 
     render();
 };
@@ -94,16 +101,27 @@ function checkMatch (evt) {
         firstCard.matched = true;
         board[evt.target.id].matched = true;
         console.log("ITS A MATCH");
-    } else {
-        setTimeout(function() {
+        render();  
+    } else {       
             console.log("ITS NOT A MATCH")
-            firstCard.img = CARD_BACK;
-            board[evt.target.id].img = CARD_BACK;
-        }, 500);
+            setTimeout(function() {
+                console.log("Inside Timeout");
+            }, 5000);
+            // firstCard.img = CARD_BACK;
+            // board[evt.target.id].img = CARD_BACK;
+            render();
+        };
+        console.log(board);
     }
-    console.log(board);
-    render();    
-}
+
+// Starts the timer
+// function getTimer() {
+//     console.log("IN TIMER!")
+//     setTimeout(function(){
+//         render();
+//     }, 5000);
+// };
+    
 
 // Sets up the board to contain our grid of cards
 function boardSetup () {
