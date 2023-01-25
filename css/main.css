@@ -20,10 +20,6 @@ main {
     align-items: center;
 }
 
-.title-text {
-    
-}
-
 .playButton {
     padding: 5px 10px;
     display: inline-block;
@@ -37,11 +33,6 @@ main {
     display: grid;
     grid-template-rows: repeat(2, 20vmin);
     grid-template-columns: repeat(5, 15vmin);
-}
-
-.playAgain {
-    padding: 20px;
-    margin: 20px;
 }
 
 div > img:hover{

@@ -14,6 +14,9 @@
 
 const CARD_BACK = "imgs/cardBack.png";
 
+const CONTINUES = ["imgs/continue0.png", "imgs/continue1.png", 
+"imgs/continue2.png", "imgs/continue3.png", "imgs/continue4.png", "imgs/continue5.png" ];
+
 // Variables
 let board, cardSelection, firstCard, continues;
 let attemptCount = 1;
@@ -24,7 +27,7 @@ let ignoreClick;
 const boardGrid = document.querySelectorAll("#gridImage");
 const boardContinues = document.querySelector("#attempts-display");
 const gridImages = document.getElementsByClassName("gridImage");
-const attemptDisplay = document.getElementById("attempts-display")
+const attemptDisplay = document.getElementById("continue-display")
 const matchAudio = new Audio("Sounds/Mario-match.wav");
 const noMatchAudio = new Audio("Sounds/Mario-noMatch.wav");
 const winEffect = new Audio("Sounds/Mario-winner.wav");
@@ -82,10 +85,17 @@ function render() {
             gridImages[index].setAttribute("src", CARD_BACK);
         }
     });
-    attemptDisplay.innerHTML = "Continues: " + continues;
+    const continueImg = CONTINUES[continues];
+    document.getElementById("continueImg").setAttribute("src", continueImg);
     ignoreClick = false;
     getWinner();
 }
+
+//         var x = document.createElement("img");
+//         x.setAttribute("src", CARD_BACK)
+//         x.setAttribute("id", index);
+//         x.setAttribute("class", "cardClass");
+//         document.getElementById("cardContainer").appendChild(x);
 
 function handleSelection(evt) {
     // guard
@@ -129,16 +139,16 @@ function checkMatch (evt) {
     }    
 
 // Sets up the board to contain our grid of cards
-function boardSetup () {
-    board.forEach(function(card, index) { 
-        const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
-        var x = document.createElement("img");
-        x.setAttribute("src", CARD_BACK)
-        x.setAttribute("id", index);
-        x.setAttribute("class", "cardClass");
-        document.getElementById("cardContainer").appendChild(x);
-    });
-}
+// function boardSetup () {
+//     board.forEach(function(card, index) { 
+//         const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
+//         var x = document.createElement("img");
+//         x.setAttribute("src", CARD_BACK)
+//         x.setAttribute("id", index);
+//         x.setAttribute("class", "cardClass");
+//         document.getElementById("cardContainer").appendChild(x);
+//     });
+// }
 
 // call the init function to reset the board state
 function playGame() {
