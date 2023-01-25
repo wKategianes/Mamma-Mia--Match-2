@@ -48,14 +48,13 @@ function init() {
     cardSelection = null;
     firstCard = null;
     continues = 5;
-    winner = null;
     ignoreClick = false;
-    matchAudio.volume = 0.01;
-    noMatchAudio.volume = 0.01;
-    winEffect.volume = 0.01;
-    gameOver.volume = 0.01;
-    playButtonEffect.volume = 0.01;
-    playAgainEffect.volume = 0.01;
+    matchAudio.volume = 0.05;
+    noMatchAudio.volume = 0.05;
+    winEffect.volume = 0.05;
+    gameOver.volume = 0.05;
+    playButtonEffect.volume = 0.05;
+    playAgainEffect.volume = 0.05;
     render();
 }
 
@@ -99,7 +98,7 @@ function render() {
 
 function handleSelection(evt) {
     // guard
-    if (evt.target.tagName !== "IMG" || ignoreClick === true) return console.log("NOPE");
+    if (evt.target.tagName !== "IMG" || ignoreClick === true || board[evt.target.id] === firstCard) return;
 
     cardSelection = evt.target.id;
 
@@ -138,29 +137,11 @@ function checkMatch (evt) {
         };
     }    
 
-// Sets up the board to contain our grid of cards
-// function boardSetup () {
-//     board.forEach(function(card, index) { 
-//         const src = (card.matched || card === cardSelection) ? card.img : CARD_BACK;
-//         var x = document.createElement("img");
-//         x.setAttribute("src", CARD_BACK)
-//         x.setAttribute("id", index);
-//         x.setAttribute("class", "cardClass");
-//         document.getElementById("cardContainer").appendChild(x);
-//     });
-// }
-
 // call the init function to reset the board state
 function playGame() {
     playButtonEffect.play();
     init();
 }
-
-// call the playGame function to reset board state
-// function playAgain() {
-//     playAgainEffect.play();
-//     init();
-// }
 
 // checks the board.matched property to see if we have a winner
 function getWinner () {

@@ -33,6 +33,12 @@ main {
     display: grid;
     grid-template-rows: repeat(2, 20vmin);
     grid-template-columns: repeat(5, 15vmin);
+    background-color: black;
+}
+
+section > div > img {
+    border-radius: 10%;
+    border: solid black 1px;
 }
 
 div > img:hover{
