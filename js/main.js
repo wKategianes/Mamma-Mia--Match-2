@@ -28,22 +28,25 @@ const boardGrid = document.querySelectorAll("#gridImage");
 const boardContinues = document.querySelector("#attempts-display");
 const gridImages = document.getElementsByClassName("gridImage");
 const attemptDisplay = document.getElementById("continue-display")
+const containerOverlay = "imgs/winnerImage.png";
 const matchAudio = new Audio("Sounds/Mario-match.wav");
 const noMatchAudio = new Audio("Sounds/Mario-noMatch.wav");
 const winEffect = new Audio("Sounds/Mario-winner.wav");
-const gameOver = new Audio("Sounds/Mario-mamma-mia.wav");
+const gameOver = new Audio("Sounds/Mario-gameover.mp3");
 const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav")
 const playAgainEffect = new Audio("Sounds/Mario-lets-a-go.wav");
+const cardSelectEffect = new Audio("Sounds/Mario-card-select.wav")
 
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
 document.querySelector(".playButton").addEventListener("click", playGame);
-// document.querySelector(".playAgain").addEventListener("click", playAgain)
+// document.querySelector("gridImage").addEventListener("mouseover", getHoverEffect);
 
 // Functions
 init();
 
 function init() {
+    stopAudio();
     board = getShuffledDeck();
     cardSelection = null;
     firstCard = null;
@@ -55,6 +58,8 @@ function init() {
     gameOver.volume = 0.05;
     playButtonEffect.volume = 0.05;
     playAgainEffect.volume = 0.05;
+    cardSelectEffect.volume = 0.05;
+    boardReset();
     render();
 }
 
@@ -89,12 +94,6 @@ function render() {
     ignoreClick = false;
     getWinner();
 }
-
-//         var x = document.createElement("img");
-//         x.setAttribute("src", CARD_BACK)
-//         x.setAttribute("id", index);
-//         x.setAttribute("class", "cardClass");
-//         document.getElementById("cardContainer").appendChild(x);
 
 function handleSelection(evt) {
     // guard
@@ -156,8 +155,44 @@ function getWinner () {
     }
 
     if (checkWinner === false && continues == 0) {
+        for (let i = 0; i < board.length ; i++) {
+            document.getElementById([i]).style.opacity = "0.0";
+        }
+        document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
+        document.getElementById("mainId").style.backgroundSize = "100% 100%";
+        document.getElementById("continue-display").style.opacity = "0%";
+        document.getElementById("title-img").style.opacity = "0%";
+
         gameOver.play();
         ignoreClick = true;
         return console.log("Game Over!")
     }
+}
+
+function getHoverEffect () {
+    cardSelectEffect.play();
+}
+
+function stopAudio() {
+    matchAudio.pause();
+    noMatchAudio.pause();
+    winEffect.pause();
+    gameOver.pause();
+    playAgainEffect.pause();
+    cardSelectEffect.pause();
+}
+
+function gameOverImage () {
+    const imageEl = document.createElement("img");
+    imageEl.setAttribute("src", "imgs/gameOverImage.png");
+    document.getElementById("cardContainer").appendChild(imageEl);
+}
+
+function boardReset () {
+    document.getElementById("continue-display").style.opacity = "100%";
+    document.getElementById("title-img").style.opacity = "100%";
+    for (let i = 0; i < board.length ; i++) {
+        document.getElementById([i]).style.opacity = "100%";
+    }
+    document.getElementById("mainId").style.backgroundImage = "none";
 }
