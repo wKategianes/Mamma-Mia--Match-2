@@ -36,11 +36,11 @@ const gameOver = new Audio("Sounds/Mario-gameover.mp3");
 const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav")
 const playAgainEffect = new Audio("Sounds/Mario-lets-a-go.wav");
 const cardSelectEffect = new Audio("Sounds/Mario-card-select.wav")
+const backGroundTheme = new Audio("Sounds/Mario-grassland-theme.mp3");
 
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
 document.querySelector(".playButton").addEventListener("click", playGame);
-// document.querySelector("gridImage").addEventListener("mouseover", getHoverEffect);
 
 // Functions
 init();
@@ -52,19 +52,13 @@ function init() {
     firstCard = null;
     continues = 5;
     ignoreClick = false;
-    matchAudio.volume = 0.05;
-    noMatchAudio.volume = 0.05;
-    winEffect.volume = 0.05;
-    gameOver.volume = 0.05;
-    playButtonEffect.volume = 0.05;
-    playAgainEffect.volume = 0.05;
-    cardSelectEffect.volume = 0.05;
     boardReset();
+    setAudio();
     render();
 }
 
 // creates a copy of the SOURCE_DECK using the spread function
-// using the sort method to shuffle the deck and returning the shuffled deck
+// using the sort method to shuffle the deck and return a shuffled deck
 function getShuffledDeck () {
     let tempDeck = [...SOURCE_DECK];
 
@@ -139,6 +133,8 @@ function checkMatch (evt) {
 // call the init function to reset the board state
 function playGame() {
     playButtonEffect.play();
+    backGroundTheme.loop = true;
+    backGroundTheme.play();
     init();
 }
 
@@ -149,20 +145,16 @@ function getWinner () {
     });
         
     if (checkWinner === true) {
+        cardClear()
+        gameWinScreen();
         winEffect.play();
         ignoreClick = true;
         return console.log("WINNER");
     }
 
     if (checkWinner === false && continues == 0) {
-        for (let i = 0; i < board.length ; i++) {
-            document.getElementById([i]).style.opacity = "0.0";
-        }
-        document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
-        document.getElementById("mainId").style.backgroundSize = "100% 100%";
-        document.getElementById("continue-display").style.opacity = "0%";
-        document.getElementById("title-img").style.opacity = "0%";
-
+        cardClear();
+        gameOverScreen();
         gameOver.play();
         ignoreClick = true;
         return console.log("Game Over!")
@@ -195,4 +187,40 @@ function boardReset () {
         document.getElementById([i]).style.opacity = "100%";
     }
     document.getElementById("mainId").style.backgroundImage = "none";
+}
+
+function cardClear () {
+    for (let i = 0; i < board.length ; i++) {
+        document.getElementById([i]).style.opacity = "0.0";
+    }
+}
+
+function gameWinScreen () {
+    document.getElementById("mainId").style.backgroundImage = "url(imgs/winnerText.png)"
+    document.getElementById("mainId").style.backgroundPosition = "center";
+    document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
+    document.getElementById("continue-display").style.opacity = "0%";
+    document.getElementById("title-img").style.opacity = "0%";
+    backGroundTheme.pause();
+}
+
+function gameOverScreen () {
+    document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
+    document.getElementById("mainId").style.backgroundPosition = "center";
+    document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
+    document.getElementById("continue-display").style.opacity = "0%";
+    document.getElementById("title-img").style.opacity = "0%";
+    backGroundTheme.pause();
+
+}
+
+function setAudio () {
+    matchAudio.volume = 0.05;
+    noMatchAudio.volume = 0.05;
+    winEffect.volume = 0.05;
+    gameOver.volume = 0.05;
+    playButtonEffect.volume = 0.05;
+    playAgainEffect.volume = 0.05;
+    cardSelectEffect.volume = 0.05;
+    backGroundTheme.volume = 0.01;
 }
