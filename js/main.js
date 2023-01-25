@@ -22,20 +22,21 @@ let board, cardSelection, firstCard, continues;
 let attemptCount = 1;
 let firstCardShow = true;
 let ignoreClick;
+let firstRun = true;
 
 // Cached Elements
 const boardGrid = document.querySelectorAll("#gridImage");
 const boardContinues = document.querySelector("#attempts-display");
 const gridImages = document.getElementsByClassName("gridImage");
-const attemptDisplay = document.getElementById("continue-display")
+const attemptDisplay = document.getElementById("continue-display");
 const containerOverlay = "imgs/winnerImage.png";
 const matchAudio = new Audio("Sounds/Mario-match.wav");
 const noMatchAudio = new Audio("Sounds/Mario-noMatch.wav");
 const winEffect = new Audio("Sounds/Mario-winner.wav");
 const gameOver = new Audio("Sounds/Mario-gameover.mp3");
-const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav")
+const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav");
 const playAgainEffect = new Audio("Sounds/Mario-lets-a-go.wav");
-const cardSelectEffect = new Audio("Sounds/Mario-card-select.wav")
+const cardSelectEffect = new Audio("Sounds/Mario-card-select.wav");
 const backGroundTheme = new Audio("Sounds/Mario-grassland-theme.mp3");
 
 // Event Listeners
@@ -73,7 +74,6 @@ function getShuffledDeck () {
     return tempDeck;
 }
 
-
 // Render function used to display the current state to the player
 function render() {
     board.forEach(function(card, index) {
@@ -91,9 +91,10 @@ function render() {
 
 function handleSelection(evt) {
     // guard
-    if (evt.target.tagName !== "IMG" || ignoreClick === true || board[evt.target.id] === firstCard) return;
+    if (evt.target.tagName !== "IMG" || ignoreClick === true || board[evt.target.id] === firstCard || firstRun === true) return;
 
     cardSelection = evt.target.id;
+    firstRun = false;
 
     const select = document.getElementById(evt.target.id)
 
@@ -135,8 +136,11 @@ function playGame() {
     playButtonEffect.play();
     backGroundTheme.loop = true;
     backGroundTheme.play();
+    document.querySelector(".playButton").style.visibility = "hidden";
+    firstRun = false;
     init();
 }
+
 
 // checks the board.matched property to see if we have a winner
 function getWinner () {
@@ -187,6 +191,7 @@ function boardReset () {
         document.getElementById([i]).style.opacity = "100%";
     }
     document.getElementById("mainId").style.backgroundImage = "none";
+    
 }
 
 function cardClear () {
@@ -196,12 +201,14 @@ function cardClear () {
 }
 
 function gameWinScreen () {
-    document.getElementById("mainId").style.backgroundImage = "url(imgs/winnerText.png)"
+    document.getElementById("mainId").style.backgroundImage = "url(imgs/marioWin.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
     document.getElementById("continue-display").style.opacity = "0%";
     document.getElementById("title-img").style.opacity = "0%";
     backGroundTheme.pause();
+    document.querySelector(".playButton").style.visibility = "visible";
+    document.getElementById("mainId").style.pos
 }
 
 function gameOverScreen () {
@@ -211,7 +218,7 @@ function gameOverScreen () {
     document.getElementById("continue-display").style.opacity = "0%";
     document.getElementById("title-img").style.opacity = "0%";
     backGroundTheme.pause();
-
+    document.querySelector(".playButton").style.visibility = "visible";
 }
 
 function setAudio () {

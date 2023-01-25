@@ -19,17 +19,22 @@ main {
     align-items: center;
     object-fit: cover;
     margin-top: 10%;
-    /* background: rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
-    border: groove black 3px; */
 }
 
 .playButton {
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: 35px 105px;
     cursor: pointer;
     margin-bottom: 5px;
-    transition: 0.6s;
+    transition: 0.4s;
+    border-radius: 10px;
+    background-image: url(../imgs/play.png);
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+}
+
+.playButton:hover {
+    transform: translateX(6px);
 }
 
 .attempts-display {
@@ -40,8 +45,6 @@ main {
     display: grid;
     grid-template-rows: repeat(2, 20vmin);
     grid-template-columns: repeat(5, 15vmin);
-    /* background-image: url(../imgs/gameOverImage.jpg);
-    background-size: 100% 100%;     */
 }
 
 section > div > img {
