@@ -63,14 +63,12 @@ function init() {
 function getShuffledDeck () {
     let tempDeck = [...SOURCE_DECK];
 
-    tempDeck.sort(() => Math.random() - 0.5)
-    console.log(tempDeck)
+    tempDeck.sort(() => Math.random() - 0.5)    
 
     for (let i = 0; i < tempDeck.length; i++) {
         gridImages[i].setAttribute("src", CARD_BACK);
         tempDeck[i].matched = false;
     };
-
     return tempDeck;
 }
 
@@ -89,6 +87,8 @@ function render() {
     getWinner();
 }
 
+// checks user input against the guard, flips the card if selected
+// tracks how many cards have been selected, calls the checkMatch function
 function handleSelection(evt) {
     // guard
     if (evt.target.tagName !== "IMG" || ignoreClick === true || board[evt.target.id] === firstCard || firstRun === true) return;
@@ -111,6 +111,8 @@ function handleSelection(evt) {
     }
 };
 
+// checks to see if the user has picked two cards that have matching
+// matched property
 function checkMatch (evt) {
     if (firstCard.img === board[evt.target.id].img) {
         firstCard.matched = true;
@@ -124,8 +126,7 @@ function checkMatch (evt) {
         noMatchAudio.play();
         continues--;
         continues = Math.max(continues--, 0);
-        setTimeout(function() {
-            console.log("Inside Timeout");
+        setTimeout(function() {            
             render();
         }, 1000);
         };
@@ -169,6 +170,7 @@ function getHoverEffect () {
     cardSelectEffect.play();
 }
 
+// stops all the audio from playing
 function stopAudio() {
     matchAudio.pause();
     noMatchAudio.pause();
@@ -178,12 +180,15 @@ function stopAudio() {
     cardSelectEffect.pause();
 }
 
+// displays the game over image to the user once the game over 
+// condition has been met
 function gameOverImage () {
     const imageEl = document.createElement("img");
     imageEl.setAttribute("src", "imgs/gameOverImage.png");
     document.getElementById("cardContainer").appendChild(imageEl);
 }
 
+// shows the cards then hides the win/game over image when called
 function boardReset () {
     document.getElementById("continue-display").style.opacity = "100%";
     document.getElementById("title-img").style.opacity = "100%";
@@ -194,12 +199,16 @@ function boardReset () {
     
 }
 
+// sets the opacity of all the cards to 0% making the hidden
 function cardClear () {
     for (let i = 0; i < board.length ; i++) {
         document.getElementById([i]).style.opacity = "0.0";
     }
 }
 
+// turns the <main> tag style to backgroundImage to show the win image 
+// and turns the opacity of continue & title <img> tag to 0%,
+// also shows the play button
 function gameWinScreen () {
     document.getElementById("mainId").style.backgroundImage = "url(imgs/marioWin.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
@@ -211,6 +220,9 @@ function gameWinScreen () {
     document.getElementById("mainId").style.pos
 }
 
+// turns the <main> tag style to backgroundImage to show the game over image 
+// and turns the opacity of continue & title <img> tag to 0%,
+// also shows the play button
 function gameOverScreen () {
     document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
@@ -221,6 +233,7 @@ function gameOverScreen () {
     document.querySelector(".playButton").style.visibility = "visible";
 }
 
+// sets the volume levels of all audio variables
 function setAudio () {
     matchAudio.volume = 0.05;
     noMatchAudio.volume = 0.05;
