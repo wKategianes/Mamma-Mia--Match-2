@@ -55,7 +55,8 @@ If you are able to match all the cards before you run out of continues you win!
 ## :ice_cube: Upcoming Features
 
 [:x:] Add flip animation to the cards once clicked on<br>
-[:star:] Add sound effect when a card is clicked on<br>
+[:star:] Add sound effects when a card is clicked on<br>
+[:star:] Add sound effects when there is a match/not a match made<br>
 [:star:] Add background theme music while game is in play<br>
 [:x:] Add a button for multiple difficulties (more of less continues)<br>
 [:x:] Add animation to the win/gameover screen
