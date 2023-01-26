@@ -4,9 +4,11 @@
 
 #
 
-  <div id="description" align="center">
-  ### [![CLICK TO DEMO](https://wkategianes.github.io/Mamma-Mia--Match-2/)
+ <div id="description" align="center">
+      
+  ### [CLICK TO DEMO](https://wkategianes.github.io/Mamma-Mia--Match-2/)
 
+      
   ##### William Kategianes
 
   [![LinkedIn Badge](https://img.shields.io/badge/-@wKategianes-blue?style=flat&logo=Linkedin&logoColor=black)](https://www.linkedin.com/in/wkategianes/)
@@ -16,6 +18,11 @@
 Mamma Mia! Match 2! is a game about memory and most of all **concentration**! The board contains 10 cards that are face down and must be
 matched in order to win. You begin playing by clicking on the play button and start clicking the cards and trying your best to match all 10! 
 If you are able to match all the cards before you run out of continues you win!
+
+ </div>
+  
+ <div id="document" align="left">
+  
 
   ## :camera_flash: Screenshots 
 
