@@ -15,8 +15,8 @@
 
   ## :pencil: Description
 
-Mamma Mia! Match 2! is a game about memory and most of all **concentration**! The board contains 10 cards that are face down and must be
-matched in order to win. You begin playing by clicking on the play button and start clicking the cards and trying your best to match all 10! 
+Mamma Mia! Match 2! is a game about memory and most of all _**concentration**_! The board contains 10 cards that are face down and must be
+matched in order to win. You begin playing by clicking on the play button! Start by clicking the cards and trying your best to match all 10! 
 If you are able to match all the cards before you run out of continues you win!
 
  </div>
