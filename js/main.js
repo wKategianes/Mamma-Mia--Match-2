@@ -116,11 +116,9 @@ function checkMatch (evt) {
     if (firstCard.img === board[evt.target.id].img) {
         firstCard.matched = true;
         board[evt.target.id].matched = true;
-        console.log("ITS A MATCH");
         render();
         matchAudio.play();
     } else {       
-        console.log("ITS NOT A MATCH")
         ignoreClick = true;
         noMatchAudio.play();
         continues--;
@@ -153,7 +151,6 @@ function getWinner () {
         gameWinScreen();
         winEffect.play();
         ignoreClick = true;
-        return console.log("WINNER");
     }
 
     if (checkWinner === false && continues == 0) {
@@ -161,7 +158,6 @@ function getWinner () {
         gameOverScreen();
         gameOver.play();
         ignoreClick = true;
-        return console.log("Game Over!")
     }
 }
 
