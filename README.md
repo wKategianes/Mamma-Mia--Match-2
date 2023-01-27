@@ -6,7 +6,7 @@
 
  <div id="description" align="center">
       
- ### <a href="https://wkategianes.github.io/Mamma-Mia--Match-2/" target="_blank">Click to Demo</a>
+ ### <a href="https://wkategianes.github.io/Mamma-Mia--Match-2/">Click to Demo</a>
 
       
   ##### William Kategianes
