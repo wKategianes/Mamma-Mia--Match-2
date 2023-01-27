@@ -1,15 +1,15 @@
 // Constants
     const SOURCE_DECK = [
-        { name: "FireMario", img: "imgs/card1Mushroom.png", matched: false},
-        { name: "FireMario",  img: "imgs/card1Mushroom.png", matched: false},
-        { name: "RacoonMario",  img: "imgs/card2FireFlower.png", matched: false},
-        { name: "RacoonMario",  img: "imgs/card2FireFlower.png", matched: false},
-        { name: "FrogMario",  img: "imgs/card3Star.png", matched: false},
-        { name: "FrogMario",  img: "imgs/card3Star.png", matched: false},
-        { name: "ShoeMario",  img: "imgs/card4Chest.png", matched: false},
-        { name: "ShoeMario",  img: "imgs/card4Chest.png", matched: false},
-        { name: "SpinyMario",  img: "imgs/card5Coin.png", matched: false},
-        { name: "SpinyMario",  img: "imgs/card5Coin.png", matched: false},
+        { img: "imgs/card1Mushroom.png", matched: false},
+        { img: "imgs/card1Mushroom.png", matched: false},
+        { img: "imgs/card2FireFlower.png", matched: false},
+        { img: "imgs/card2FireFlower.png", matched: false},
+        { img: "imgs/card3Star.png", matched: false},
+        { img: "imgs/card3Star.png", matched: false},
+        { img: "imgs/card4Chest.png", matched: false},
+        { img: "imgs/card4Chest.png", matched: false},
+        { img: "imgs/card5Coin.png", matched: false},
+        { img: "imgs/card5Coin.png", matched: false},
     ];
 
 const CARD_BACK = "imgs/cardBack.png";
@@ -19,7 +19,7 @@ const CONTINUES = ["imgs/continue0.png", "imgs/continue1.png",
 
 // Variables
 let board, cardSelection, firstCard, continues;
-let attemptCount = 1;
+let cardCount = 1;
 let firstCardShow = true;
 let ignoreClick;
 let firstRun = true;
@@ -36,7 +36,6 @@ const winEffect = new Audio("Sounds/Mario-winner.wav");
 const gameOver = new Audio("Sounds/Mario-gameover.mp3");
 const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav");
 const playAgainEffect = new Audio("Sounds/Mario-lets-a-go.wav");
-const cardSelectEffect = new Audio("Sounds/Mario-card-select.wav");
 const backGroundTheme = new Audio("Sounds/Mario-grassland-theme.mp3");
 
 // Event Listeners
@@ -102,12 +101,12 @@ function handleSelection(evt) {
         select.setAttribute("src", board[cardSelection].img);
     };
 
-    if (attemptCount !== 2){
-        attemptCount++;
+    if (cardCount !== 2){
+        cardCount++;
         firstCard = board[evt.target.id];
-    } else if (attemptCount === 2){
+    } else if (cardCount === 2){
         checkMatch(evt);
-        attemptCount = 1;
+        cardCount = 1;
     }
 };
 
@@ -166,10 +165,6 @@ function getWinner () {
     }
 }
 
-function getHoverEffect () {
-    cardSelectEffect.play();
-}
-
 // stops all the audio from playing
 function stopAudio() {
     matchAudio.pause();
@@ -177,7 +172,6 @@ function stopAudio() {
     winEffect.pause();
     gameOver.pause();
     playAgainEffect.pause();
-    cardSelectEffect.pause();
 }
 
 // displays the game over image to the user once the game over 
@@ -241,6 +235,5 @@ function setAudio () {
     gameOver.volume = 0.05;
     playButtonEffect.volume = 0.05;
     playAgainEffect.volume = 0.05;
-    cardSelectEffect.volume = 0.05;
     backGroundTheme.volume = 0.01;
 }

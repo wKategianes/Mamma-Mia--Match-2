@@ -25,7 +25,6 @@ main {
     padding: 35px 105px;
     cursor: pointer;
     margin-bottom: 5px;
-    transition: 0.4s;
     border-radius: 10px;
     background-image: url(../imgs/play.png);
     background-color: transparent;
@@ -34,7 +33,8 @@ main {
 }
 
 .playButton:hover {
-    transform: translateX(6px);
+    transform: scale(10px, 10px);
+    
 }
 
 .attempts-display {
