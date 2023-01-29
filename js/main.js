@@ -15,14 +15,15 @@
 const CARD_BACK = "imgs/cardBack.png";
 
 const CONTINUES = ["imgs/continue0.png", "imgs/continue1.png", 
-"imgs/continue2.png", "imgs/continue3.png", "imgs/continue4.png", "imgs/continue5.png" ];
+"imgs/continue2.png", "imgs/continue3.png", "imgs/continue4.png", "imgs/continue5.png", 
+"imgs/continue6.png", "imgs/continue7.png" ];
 
 // Variables
-let board, cardSelection, firstCard, continues;
+let board, cardSelection, firstCard, ignoreClick;
 let cardCount = 1;
 let firstCardShow = true;
-let ignoreClick;
 let firstRun = true;
+let continues = 5;
 
 // Cached Elements
 const boardGrid = document.querySelectorAll("#gridImage");
@@ -38,11 +39,16 @@ const gameOver = new Audio("Sounds/Mario-gameover.mp3");
 const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav");
 const playAgainEffect = new Audio("Sounds/Mario-lets-a-go.wav");
 const backGroundTheme = new Audio("Sounds/Mario-grassland-theme.mp3");
+const difficultySelection = new Audio("Sounds/Mario-difficulty-selection.wav");
 
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
 document.querySelector(".playButton").addEventListener("click", playGame);
 document.querySelector(".easyButton").addEventListener("click", easyDifficulty)
+document.querySelector(".normalButton").addEventListener("click", normalDifficulty)
+document.querySelector(".hardButton").addEventListener("click", hardDifficulty)
+
+
 
 // Functions
 init();
@@ -52,7 +58,6 @@ function init() {
     board = getShuffledDeck();
     cardSelection = null;
     firstCard = null;
-    continues = 5;
     ignoreClick = false;
     boardReset();
     setAudio();
@@ -82,9 +87,8 @@ function render() {
             gridImages[index].setAttribute("src", CARD_BACK);
         }
     });
-    const continueImg = CONTINUES[continues];
-    document.getElementById("continueImg").setAttribute("src", continueImg);
     ignoreClick = false;
+    setContinue();
     getWinner();
 }
 
@@ -136,8 +140,8 @@ function playGame() {
     playButtonEffect.play();
     backGroundTheme.loop = true;
     backGroundTheme.play();
-    document.querySelector(".playButton").style.visibility = "hidden";
     firstRun = false;
+    buttonState();
     init();
 }
 
@@ -234,10 +238,43 @@ function setAudio () {
     playButtonEffect.volume = 0.05;
     playAgainEffect.volume = 0.05;
     backGroundTheme.volume = 0.01;
+    difficultySelection.volume = 0.05;
+}
+
+// checks the amount of continues and then changes the image
+function setContinue () {
+    const continueImg = CONTINUES[continues];
+    document.getElementById("continueImg").setAttribute("src", continueImg);
+}
+
+// hides the play, easy, normal and hard buttons
+function buttonState () {
+    document.querySelector(".playButton").style.visibility = "hidden";
+    document.querySelector(".easyButton").style.visibility = "hidden";
+    document.querySelector(".normalButton").style.visibility = "hidden";
+    document.querySelector(".hardButton").style.visibility = "hidden";
 }
 
 // adjusts the amount of continues and changes the background
 function easyDifficulty() {
     backgroundDisplay.style.backgroundImage = "url(imgs/easyDifficulty.jpg";
+    difficultySelection.play();
+    continues = 7;
+    setContinue();
+}
 
+// adjusts the amount of continues and changes the background
+function normalDifficulty() {
+    backgroundDisplay.style.backgroundImage = "url(imgs/normalDifficulty.jpg";
+    difficultySelection.play();
+    continues = 5;
+    setContinue();
+}
+
+// adjusts the amount of continues and changes the background
+function hardDifficulty() {
+    backgroundDisplay.style.backgroundImage = "url(imgs/hardDifficulty.jpg";
+    difficultySelection.play();
+    continues = 3;
+    setContinue();
 }
