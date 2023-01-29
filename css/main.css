@@ -30,6 +30,7 @@ main {
     background-color: transparent;
     border: none;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 .playButton:hover {
@@ -57,4 +58,41 @@ section > div > img {
 
 section > div > img:hover {
     border: solid #fbd000;
+}
+
+.easyButton {
+    padding: 35px 105px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-image: url(../imgs/easy.png);
+    border: none;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    text-align: center;
+    background-position: center;
+}
+
+.normalButton {
+    padding: 35px 155px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-image: url(../imgs/normal.png);
+    border: none;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: center;
+}
+
+.hardButton {
+    padding: 35px 105px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-image: url(../imgs/hard.png);
+    border: none;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: center;
 }

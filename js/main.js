@@ -29,6 +29,7 @@ const boardGrid = document.querySelectorAll("#gridImage");
 const boardContinues = document.querySelector("#attempts-display");
 const gridImages = document.getElementsByClassName("gridImage");
 const attemptDisplay = document.getElementById("continue-display");
+const backgroundDisplay = document.querySelector("body");
 const containerOverlay = "imgs/winnerImage.png";
 const matchAudio = new Audio("Sounds/Mario-match.wav");
 const noMatchAudio = new Audio("Sounds/Mario-noMatch.wav");
@@ -41,6 +42,7 @@ const backGroundTheme = new Audio("Sounds/Mario-grassland-theme.mp3");
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
 document.querySelector(".playButton").addEventListener("click", playGame);
+document.querySelector(".easyButton").addEventListener("click", easyDifficulty)
 
 // Functions
 init();
@@ -232,4 +234,10 @@ function setAudio () {
     playButtonEffect.volume = 0.05;
     playAgainEffect.volume = 0.05;
     backGroundTheme.volume = 0.01;
+}
+
+// adjusts the amount of continues and changes the background
+function easyDifficulty() {
+    backgroundDisplay.style.backgroundImage = "url(imgs/easyDifficulty.jpg";
+
 }
