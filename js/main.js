@@ -44,9 +44,9 @@ const difficultySelection = new Audio("Sounds/Mario-difficulty-selection.wav");
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
 document.querySelector(".playButton").addEventListener("click", playGame);
-document.querySelector(".easyButton").addEventListener("click", easyDifficulty)
-document.querySelector(".normalButton").addEventListener("click", normalDifficulty)
-document.querySelector(".hardButton").addEventListener("click", hardDifficulty)
+document.querySelector(".easyButton").addEventListener("click", easyDifficulty);
+document.querySelector(".normalButton").addEventListener("click", normalDifficulty);
+document.querySelector(".hardButton").addEventListener("click", hardDifficulty);
 
 
 
@@ -87,6 +87,8 @@ function render() {
             gridImages[index].setAttribute("src", CARD_BACK);
         }
     });
+
+    // if (continues === 0) return continues = 5;
     ignoreClick = false;
     setContinue();
     getWinner();
@@ -140,8 +142,11 @@ function playGame() {
     playButtonEffect.play();
     backGroundTheme.loop = true;
     backGroundTheme.play();
-    firstRun = false;
-    buttonState();
+    document.querySelector(".playButton").style.visibility = "hidden";
+    document.querySelector(".easyButton").style.visibility = "hidden";
+    document.querySelector(".normalButton").style.visibility = "hidden";
+    document.querySelector(".hardButton").style.visibility = "hidden";
+    firstRun = false;    
     init();
 }
 
@@ -191,8 +196,7 @@ function boardReset () {
     for (let i = 0; i < board.length ; i++) {
         document.getElementById([i]).style.opacity = "100%";
     }
-    document.getElementById("mainId").style.backgroundImage = "none";
-    
+    document.getElementById("mainId").style.backgroundImage = "none";   
 }
 
 // sets the opacity of all the cards to 0% making the hidden
@@ -213,6 +217,9 @@ function gameWinScreen () {
     document.getElementById("title-img").style.opacity = "0%";
     backGroundTheme.pause();
     document.querySelector(".playButton").style.visibility = "visible";
+    document.querySelector(".easyButton").style.visibility = "visible";
+    document.querySelector(".normalButton").style.visibility = "visible";
+    document.querySelector(".hardButton").style.visibility = "visible";
     document.getElementById("mainId").style.pos
 }
 
@@ -223,10 +230,13 @@ function gameOverScreen () {
     document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
-    document.getElementById("continue-display").style.opacity = "0%";
+    document.getElementById("continue-display").style.opacity = "100%";
     document.getElementById("title-img").style.opacity = "0%";
     backGroundTheme.pause();
     document.querySelector(".playButton").style.visibility = "visible";
+    document.querySelector(".easyButton").style.visibility = "visible";
+    document.querySelector(".normalButton").style.visibility = "visible";
+    document.querySelector(".hardButton").style.visibility = "visible";
 }
 
 // sets the volume levels of all audio variables
@@ -243,21 +253,14 @@ function setAudio () {
 
 // checks the amount of continues and then changes the image
 function setContinue () {
-    const continueImg = CONTINUES[continues];
-    document.getElementById("continueImg").setAttribute("src", continueImg);
-}
-
-// hides the play, easy, normal and hard buttons
-function buttonState () {
-    document.querySelector(".playButton").style.visibility = "hidden";
-    document.querySelector(".easyButton").style.visibility = "hidden";
-    document.querySelector(".normalButton").style.visibility = "hidden";
-    document.querySelector(".hardButton").style.visibility = "hidden";
-}
+        const continueImg = CONTINUES[continues];
+        document.getElementById("continueImg").setAttribute("src", continueImg);
+    }
 
 // adjusts the amount of continues and changes the background
 function easyDifficulty() {
     backgroundDisplay.style.backgroundImage = "url(imgs/easyDifficulty.jpg";
+    document.getElementById("mainId").style.backgroundImage = "";
     difficultySelection.play();
     continues = 7;
     setContinue();
@@ -266,6 +269,7 @@ function easyDifficulty() {
 // adjusts the amount of continues and changes the background
 function normalDifficulty() {
     backgroundDisplay.style.backgroundImage = "url(imgs/normalDifficulty.jpg";
+    document.getElementById("mainId").style.backgroundImage = "";
     difficultySelection.play();
     continues = 5;
     setContinue();
@@ -274,6 +278,7 @@ function normalDifficulty() {
 // adjusts the amount of continues and changes the background
 function hardDifficulty() {
     backgroundDisplay.style.backgroundImage = "url(imgs/hardDifficulty.jpg";
+    document.getElementById("mainId").style.backgroundImage = "";
     difficultySelection.play();
     continues = 3;
     setContinue();
