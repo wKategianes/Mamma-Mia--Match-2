@@ -58,7 +58,7 @@ If you are able to match all the cards before you run out of continues you win!
 [:star:] Add sound a effect when a card is clicked on<br>
 [:star:] Add sound a effect when there is a match or not a match<br>
 [:star:] Add background theme music while game is in play<br>
-[:x:] Add a button for multiple difficulties (more or less continues)<br>
+[:star:] Add a button for multiple difficulties (more or less continues)<br>
 [:x:] Add animation to the win/gameover screen<br>
 [:star:] Add favicon
 </div>
