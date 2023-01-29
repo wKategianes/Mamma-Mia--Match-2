@@ -24,6 +24,8 @@ let cardCount = 1;
 let firstCardShow = true;
 let firstRun = true;
 let continues = 5;
+let easySetting, normalSetting, hardSetting = false;
+let difficultySettingChosen = false;
 
 // Cached Elements
 const boardGrid = document.querySelectorAll("#gridImage");
@@ -38,8 +40,10 @@ const winEffect = new Audio("Sounds/Mario-winner.wav");
 const gameOver = new Audio("Sounds/Mario-gameover.mp3");
 const playButtonEffect = new Audio("Sounds/Mario-here-we-go.wav");
 const playAgainEffect = new Audio("Sounds/Mario-lets-a-go.wav");
-const backGroundTheme = new Audio("Sounds/Mario-grassland-theme.mp3");
 const difficultySelection = new Audio("Sounds/Mario-difficulty-selection.wav");
+const easyTheme = new Audio("Sounds/Mario-1-1.wav");
+const normalTheme = new Audio("Sounds/Mario-grassland-theme.wav");
+const hardTheme = new Audio("Sounds/Mario-bowser-castle.wav");
 
 // Event Listeners
 document.querySelector(".cardContainer").addEventListener("click", handleSelection);
@@ -87,8 +91,6 @@ function render() {
             gridImages[index].setAttribute("src", CARD_BACK);
         }
     });
-
-    // if (continues === 0) return continues = 5;
     ignoreClick = false;
     setContinue();
     getWinner();
@@ -139,14 +141,25 @@ function checkMatch (evt) {
 
 // call the init function to reset the board state
 function playGame() {
+    // guard
+    if (difficultySettingChosen === false ) return;
+
     playButtonEffect.play();
-    backGroundTheme.loop = true;
-    backGroundTheme.play();
     document.querySelector(".playButton").style.visibility = "hidden";
     document.querySelector(".easyButton").style.visibility = "hidden";
     document.querySelector(".normalButton").style.visibility = "hidden";
     document.querySelector(".hardButton").style.visibility = "hidden";
-    firstRun = false;    
+    firstRun = false;
+    if (easySetting === true) {
+        easyTheme.play();
+        easyTheme.loop = true;
+    }  else if (normalSetting === true) {
+        normalTheme.play();
+        normalTheme.loop = true;
+    } else {
+        hardTheme.play();
+        hardTheme.loop = true;
+    }
     init();
 }
 
@@ -154,7 +167,7 @@ function playGame() {
 // checks the board.matched property to see if we have a winner
 function getWinner () {
     let checkWinner = board.every(function(bool) {
-                        return bool.matched === true;
+        return bool.matched === true;
     });
         
     if (checkWinner === true) {
@@ -179,6 +192,13 @@ function stopAudio() {
     winEffect.pause();
     gameOver.pause();
     playAgainEffect.pause();
+}
+
+// pauses the background audio
+function stopBackgroundAudio() {
+    easyTheme.pause();
+    normalTheme.pause();
+    hardTheme.pause();
 }
 
 // displays the game over image to the user once the game over 
@@ -210,29 +230,27 @@ function cardClear () {
 // and turns the opacity of continue & title <img> tag to 0%,
 // also shows the play button
 function gameWinScreen () {
+    stopBackgroundAudio();
     document.getElementById("mainId").style.backgroundImage = "url(imgs/marioWin.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
     document.getElementById("continue-display").style.opacity = "0%";
     document.getElementById("title-img").style.opacity = "0%";
-    backGroundTheme.pause();
     document.querySelector(".playButton").style.visibility = "visible";
     document.querySelector(".easyButton").style.visibility = "visible";
     document.querySelector(".normalButton").style.visibility = "visible";
     document.querySelector(".hardButton").style.visibility = "visible";
-    document.getElementById("mainId").style.pos
 }
 
 // turns the <main> tag style to backgroundImage to show the game over image 
 // and turns the opacity of continue & title <img> tag to 0%,
 // also shows the play button
 function gameOverScreen () {
+    stopBackgroundAudio();
     document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
-    document.getElementById("continue-display").style.opacity = "100%";
-    document.getElementById("title-img").style.opacity = "0%";
-    backGroundTheme.pause();
+    document.getElementById("title-img").style.opacity = "0%"; 
     document.querySelector(".playButton").style.visibility = "visible";
     document.querySelector(".easyButton").style.visibility = "visible";
     document.querySelector(".normalButton").style.visibility = "visible";
@@ -247,8 +265,10 @@ function setAudio () {
     gameOver.volume = 0.05;
     playButtonEffect.volume = 0.05;
     playAgainEffect.volume = 0.05;
-    backGroundTheme.volume = 0.01;
     difficultySelection.volume = 0.05;
+    easyTheme.volume = 0.02;
+    normalTheme.volume = 0.02;
+    hardTheme.volume = 0.02;
 }
 
 // checks the amount of continues and then changes the image
@@ -263,6 +283,10 @@ function easyDifficulty() {
     document.getElementById("mainId").style.backgroundImage = "";
     difficultySelection.play();
     continues = 7;
+    easySetting = true;
+    normalSetting = false;
+    hardSetting = false;
+    difficultySettingChosen = true;
     setContinue();
 }
 
@@ -272,6 +296,10 @@ function normalDifficulty() {
     document.getElementById("mainId").style.backgroundImage = "";
     difficultySelection.play();
     continues = 5;
+    easySetting = false;
+    normalSetting = true;
+    hardSetting = false;
+    difficultySettingChosen = true;
     setContinue();
 }
 
@@ -281,5 +309,9 @@ function hardDifficulty() {
     document.getElementById("mainId").style.backgroundImage = "";
     difficultySelection.play();
     continues = 3;
+    easySetting = false;
+    normalSetting = false;
+    hardSetting = true;
+    difficultySettingChosen = true;
     setContinue();
 }
