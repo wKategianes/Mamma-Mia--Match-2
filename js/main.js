@@ -173,14 +173,12 @@ function getWinner () {
     if (checkWinner === true) {
         cardClear()
         gameWinScreen();
-        winEffect.play();
         ignoreClick = true;
     }
 
     if (checkWinner === false && continues == 0) {
         cardClear();
         gameOverScreen();
-        gameOver.play();
         ignoreClick = true;
     }
 }
@@ -231,6 +229,7 @@ function cardClear () {
 // also shows the play button
 function gameWinScreen () {
     stopBackgroundAudio();
+    winEffect.play();
     document.getElementById("mainId").style.backgroundImage = "url(imgs/marioWin.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
@@ -247,6 +246,7 @@ function gameWinScreen () {
 // also shows the play button
 function gameOverScreen () {
     stopBackgroundAudio();
+    gameOver.play();
     document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
