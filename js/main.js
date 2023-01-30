@@ -66,7 +66,7 @@ function init() {
     boardReset();
     setAudio();
     render();
-}
+};
 
 // creates a copy of the SOURCE_DECK using the spread function
 // using the sort method to shuffle the deck and return a shuffled deck
@@ -80,7 +80,7 @@ function getShuffledDeck () {
         tempDeck[i].matched = false;
     };
     return tempDeck;
-}
+};
 
 // Render function used to display the current state to the player
 function render() {
@@ -94,7 +94,7 @@ function render() {
     ignoreClick = false;
     setContinue();
     getWinner();
-}
+};
 
 // checks user input against the guard, flips the card if selected
 // tracks how many cards have been selected, calls the checkMatch function
@@ -105,7 +105,7 @@ function handleSelection(evt) {
     cardSelection = evt.target.id;
     firstRun = false;
 
-    const select = document.getElementById(evt.target.id)
+    const select = document.getElementById(evt.target.id);
 
     if (board[cardSelection].matched === false) {
         select.setAttribute("src", board[cardSelection].img);
@@ -137,7 +137,7 @@ function checkMatch (evt) {
             render();
         }, 1000);
         };
-    }    
+    };   
 
 // call the init function to reset the board state
 function playGame() {
@@ -161,7 +161,7 @@ function playGame() {
         hardTheme.loop = true;
     }
     init();
-}
+};
 
 
 // checks the board.matched property to see if we have a winner
@@ -172,7 +172,7 @@ function getWinner () {
         
     if (checkWinner === true) {
         ignoreClick = true;
-        cardClear()
+        cardClear();
         gameWinScreen();
     }
 
@@ -181,7 +181,7 @@ function getWinner () {
         cardClear();
         gameOverScreen();
     }
-}
+};
 
 // stops all the audio from playing
 function stopAudio() {
@@ -190,14 +190,14 @@ function stopAudio() {
     winEffect.pause();
     gameOver.pause();
     playAgainEffect.pause();
-}
+};
 
 // pauses the background audio
 function stopBackgroundAudio() {
     easyTheme.pause();
     normalTheme.pause();
     hardTheme.pause();
-}
+};
 
 // displays the game over image to the user once the game over 
 // condition has been met
@@ -205,7 +205,7 @@ function gameOverImage () {
     const imageEl = document.createElement("img");
     imageEl.setAttribute("src", "imgs/gameOverImage.png");
     document.getElementById("cardContainer").appendChild(imageEl);
-}
+};
 
 // shows the cards then hides the win/game over image when called
 function boardReset () {
@@ -215,14 +215,14 @@ function boardReset () {
         document.getElementById([i]).style.opacity = "100%";
     }
     document.getElementById("mainId").style.backgroundImage = "none";   
-}
+};
 
 // sets the opacity of all the cards to 0% making the hidden
 function cardClear () {
     for (let i = 0; i < board.length ; i++) {
         document.getElementById([i]).style.opacity = "0.0";
     }
-}
+};
 
 // turns the <main> tag style to backgroundImage to show the win image 
 // and turns the opacity of continue & title <img> tag to 0%,
@@ -230,7 +230,7 @@ function cardClear () {
 function gameWinScreen () {
     stopBackgroundAudio();
     winEffect.play();
-    document.getElementById("mainId").style.backgroundImage = "url(imgs/marioWin.png)"
+    document.getElementById("mainId").style.backgroundImage = "url(imgs/marioWin.png)";
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
     document.getElementById("continue-display").style.opacity = "0%";
@@ -239,7 +239,7 @@ function gameWinScreen () {
     document.querySelector(".easyButton").style.visibility = "visible";
     document.querySelector(".normalButton").style.visibility = "visible";
     document.querySelector(".hardButton").style.visibility = "visible";
-}
+};
 
 // turns the <main> tag style to backgroundImage to show the game over image 
 // and turns the opacity of continue & title <img> tag to 0%,
@@ -247,7 +247,7 @@ function gameWinScreen () {
 function gameOverScreen () {
     stopBackgroundAudio();
     gameOver.play();
-    document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)"
+    document.getElementById("mainId").style.backgroundImage = "url(imgs/gameOverImage.png)";
     document.getElementById("mainId").style.backgroundPosition = "center";
     document.getElementById("mainId").style.backgroundRepeat = "no-repeat";
     document.getElementById("title-img").style.opacity = "0%"; 
@@ -255,7 +255,7 @@ function gameOverScreen () {
     document.querySelector(".easyButton").style.visibility = "visible";
     document.querySelector(".normalButton").style.visibility = "visible";
     document.querySelector(".hardButton").style.visibility = "visible";
-}
+};
 
 // sets the volume levels of all audio variables
 function setAudio () {
@@ -269,13 +269,13 @@ function setAudio () {
     easyTheme.volume = 0.02;
     normalTheme.volume = 0.02;
     hardTheme.volume = 0.02;
-}
+};
 
 // checks the amount of continues and then changes the image
 function setContinue () {
         const continueImg = CONTINUES[continues];
         document.getElementById("continueImg").setAttribute("src", continueImg);
-    }
+};
 
 // adjusts the amount of continues and changes the background
 function easyDifficulty() {
@@ -288,7 +288,7 @@ function easyDifficulty() {
     hardSetting = false;
     difficultySettingChosen = true;
     setContinue();
-}
+};
 
 // adjusts the amount of continues and changes the background
 function normalDifficulty() {
@@ -301,7 +301,7 @@ function normalDifficulty() {
     hardSetting = false;
     difficultySettingChosen = true;
     setContinue();
-}
+};
 
 // adjusts the amount of continues and changes the background
 function hardDifficulty() {
@@ -314,4 +314,4 @@ function hardDifficulty() {
     hardSetting = true;
     difficultySettingChosen = true;
     setContinue();
-}
+};
