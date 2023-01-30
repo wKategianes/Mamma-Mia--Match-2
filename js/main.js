@@ -142,7 +142,7 @@ function checkMatch (evt) {
 // call the init function to reset the board state
 function playGame() {
     // guard
-    if (difficultySettingChosen === false ) return;
+    if (difficultySettingChosen === false) return;
 
     playButtonEffect.play();
     document.querySelector(".playButton").style.visibility = "hidden";
@@ -171,15 +171,15 @@ function getWinner () {
     });
         
     if (checkWinner === true) {
+        ignoreClick = true;
         cardClear()
         gameWinScreen();
-        ignoreClick = true;
     }
 
     if (checkWinner === false && continues == 0) {
+        ignoreClick = true;
         cardClear();
         gameOverScreen();
-        ignoreClick = true;
     }
 }
 
