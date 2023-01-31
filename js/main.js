@@ -52,8 +52,6 @@ document.querySelector(".easyButton").addEventListener("click", easyDifficulty);
 document.querySelector(".normalButton").addEventListener("click", normalDifficulty);
 document.querySelector(".hardButton").addEventListener("click", hardDifficulty);
 
-
-
 // Functions
 init();
 
@@ -277,6 +275,11 @@ function setContinue () {
         document.getElementById("continueImg").setAttribute("src", continueImg);
 };
 
+// sets the difficultySettingChosen variable to true
+function difficulyChosenState () {
+    difficultySettingChosen = true;
+}
+
 // adjusts the amount of continues and changes the background
 function easyDifficulty() {
     backgroundDisplay.style.backgroundImage = "url(imgs/easyDifficulty.jpg";
@@ -286,7 +289,7 @@ function easyDifficulty() {
     easySetting = true;
     normalSetting = false;
     hardSetting = false;
-    difficultySettingChosen = true;
+    difficulyChosenState();
     setContinue();
 };
 
@@ -299,7 +302,7 @@ function normalDifficulty() {
     easySetting = false;
     normalSetting = true;
     hardSetting = false;
-    difficultySettingChosen = true;
+    difficulyChosenState();
     setContinue();
 };
 
@@ -312,6 +315,6 @@ function hardDifficulty() {
     easySetting = false;
     normalSetting = false;
     hardSetting = true;
-    difficultySettingChosen = true;
+    difficulyChosenState();
     setContinue();
 };
